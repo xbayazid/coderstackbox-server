@@ -1,0 +1,31 @@
+[
+    {
+        "developerName": "Jhon Due",
+        "developerEmail": "john@gmail.com",
+        "developerPhone":"091236545",
+        "developerImage":"https://i.ibb.co/nmFRSFD/coderstacbox.jpg",
+        "developerAddress":"England"
+    },
+    {
+        "developerName": "Robert Eliza",
+        "developerEmail": "robert@gmail.com",
+        "developerPhone":"012897463",
+        "developerImage":"https://i.ibb.co/KDJnBYZ/coderstackbox-2.jpg",
+        "developerAddress":"Endoneshia"
+    },
+    {
+        "developerName": "Robert Lylanve",
+        "developerEmail": "lylan@gmail.com",
+        "developerPhone":"089712364",
+        "developerImage":"https://i.ibb.co/5T2Xt0w/coderstackbox-3.jpg",
+        "developerAddress":"Rashia"
+    },
+    {
+        "developerName": "Jhon Lossi",
+        "developerEmail": "lossi@gmail.com",
+        "developerPhone":"023659872",
+        "developerImage":"https://i.ibb.co/sPLV4FQ/coderstackbox-4.jpg",
+        "developerAddress":"Japan"
+    }
+    
+]

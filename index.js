@@ -19,6 +19,8 @@ async function run(){
         const recentProjectsCollection = client.db('codersStackBox').collection('recentProjects');
         const projectCategoriesCollection = client.db('codersStackBox').collection('projectCategories');
         const projectsCollection = client.db('codersStackBox').collection('projects');
+        const developersCollection = client.db('codersStackBox').collection('developers');
+        const repotedDeveloperCollection = client.db('codersStackBox').collection('repotedDevelopers');
 
         app.get('/bestDevelopers', async(req, res)=>{
             const query = {}
@@ -78,6 +80,54 @@ async function run(){
             res.send(singleIdBasedProject);
         })
 
+        //developer all get api//
+
+        app.get('/developers', async(req, res) => {
+            const query = {};
+            const cursor = developersCollection.find(query)
+            const developer = await cursor.toArray();
+            res.send(developer);
+        })
+
+        //id based developer api//
+
+        app.get('/developers/:id',async(req, res)=>{
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const developerId = await developersCollection.findOne(query);
+            res.send(developerId);
+        })
+
+        //email based developer api //
+
+        app.get('/developers', async(req, res)=>{
+            const email = req.query.email;
+            const query = { developerEmail: email };
+            const developer = await developersCollection.findOne(query);
+            res.send(developer);
+        })
+
+        //repotedDeveloperCollection all get api//
+        app.get('/repotedDevelopers', async (req, res) => {
+            const query = {};
+            const repotedDevelopers = await repotedDeveloperCollection.find(query).toArray();
+            res.send(repotedDevelopers);
+        })
+
+        app.get('/repotedDevelopers/:id', async(req, res) => {
+            const id = req.params.id;
+            const query ={ _id: ObjectId (id) };
+            const repotedDeveloperId = await repotedDeveloperCollection.findOne(query);
+            res.send(repotedDeveloperId);
+        })
+
+        app.get('/reportedDevelopers', async(req, res) => {
+            const email = req.query.email;
+            console.log(email);
+            const query = { reporterEmaill: email };
+            const repotedDeveloperEmail = await repotedDeveloperCollection.findOne(query);
+            res.send(repotedDeveloperEmail);
+        })
 
     }
     finally{

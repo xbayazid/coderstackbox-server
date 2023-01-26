@@ -1,0 +1,39 @@
+[
+    {
+        "reporterName": "Jhon Due",
+        "reporterEmail": "john@gmail.com",
+        "reporterImage":"https://i.ibb.co/nmFRSFD/coderstacbox.jpg",
+        "reporterDeveloperId":"091236545",
+        "reporterDeveloperImage":"https://i.ibb.co/nmFRSFD/coderstacbox.jpg",
+        "reporterDeveloperName":"Jhon Due",
+        "reporterDeveloperEmail":"john@gmail.com"
+    },
+    {
+        "reporterName": "Robert Eliza",
+        "reporterEmail": "robert@gmail.com",
+        "reporterImage":"https://i.ibb.co/KDJnBYZ/coderstackbox-2.jpg",
+        "reporterDeveloperId":"012897463",
+        "reporterDeveloperEmail": "robert@gmail.com",
+        "reporterDeveloperImage":"https://i.ibb.co/KDJnBYZ/coderstackbox-2.jpg",
+        "reporterDeveloperName":"Eoneshia"
+    },
+    {
+        "reporterName": "Robert Lylanve",
+        "reporterEmaill": "lylan@gmail.com",
+        "reporterImage":"https://i.ibb.co/5T2Xt0w/coderstackbox-3.jpg",
+        "reporterDeveloperEmail": "lylan@gmail.com",
+        "reporterDeveloperImage":"https://i.ibb.co/5T2Xt0w/coderstackbox-3.jpg",
+        "reporterDeveloperId":"01235698",
+        "reporterDeveloperName":"Eoneshia"
+    },
+    {
+        "reporterName": "Jhon Lossi",
+        "reporterEmaill": "lossi@gmail.com",
+        "reporterDeveloperEmail": "lossi@gmail.com",
+        "reporterDeveloperId":"023659872",
+        "reporterImage":"https://i.ibb.co/sPLV4FQ/coderstackbox-4.jpg",
+        "reporterDeveloperImage":"https://i.ibb.co/sPLV4FQ/coderstackbox-4.jpg",
+        "reporterDeveloperName":"Japan"
+    }
+    
+]
