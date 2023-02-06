@@ -4,16 +4,40 @@ const app = express();
 const port = process.env.PORT || 5000;
 require('dotenv').config();
 const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
+const { default: mongoose } = require('mongoose');
+const projectRoute = require('./projects/projectRoute');
+const userRoute = require('./users/userRoute');
+
+
 app.use(cors());
 app.use(express.json());
 
-// MongoDb 
+/* // MongoDb 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.4n6qqjh.mongodb.net/?retryWrites=true&w=majority`;
 // console.log(uri);
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+ */
 
-async function run(){
+/* ----------Database Connection---------- */
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.4n6qqjh.mongodb.net/codersStackBox?retryWrites=true&w=majority`;
+mongoose.connect(
+  uri,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (err) throw err;
+    console.log("Connected to MongoDB!!!");
+  }
+);
+
+app.post("/api/projects", projectRoute);
+app.put("/api/user/:email", userRoute);
+app.put("/api/users", userRoute);
+
+/* async function run(){
     try{
         const bestDevelopersCollection = client.db('codersStackBox').collection('bestDevelopers');
         const recentProjectsCollection = client.db('codersStackBox').collection('recentProjects');
@@ -135,7 +159,7 @@ async function run(){
     }
 }
 
-run().catch(error => console.log(error));
+run().catch(error => console.log(error)); */
 
 app.get('/', async(req, res)=>{
     res.send('CodersStackBox server is running');
