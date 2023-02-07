@@ -34,7 +34,7 @@ mongoose.connect(
   }
 );
 
-app.post("/projects", projectRoute);
+app.put("/projects", projectRoute);
 app.put("/user/:email", userRoute);
 app.put("/users", userRoute);
 

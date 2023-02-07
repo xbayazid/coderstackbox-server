@@ -7,8 +7,9 @@ require('dotenv').config();
 
 userRoute.put("/user/:email", async (req, res) => {
  try {
-  const user = User(req.body);
-  const token = jwt.sign({user}, process.env.ACCESS_TOKEN, {
+  const { name, email } = User(req.body);
+
+  const token = jwt.sign({ name, email }, process.env.ACCESS_TOKEN, {
       expiresIn: "5h",
     });
     const checkUserEmail = await User.findOne({email: req.params.email})
