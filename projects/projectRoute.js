@@ -3,7 +3,7 @@ const Projects = require('../model/ProjectsSchema');
 const projectRoute = express.Router();
 
 
-projectRoute.post("/api/projects", async (req, res) => {
+projectRoute.post("/projects", async (req, res) => {
 /*     const newProject = new Projects(req.body); */
     const newProject = new Projects({
         ...req.body,
