@@ -5,6 +5,11 @@ const userRoute = express.Router();
 require('dotenv').config();
 
 
+// Get
+// Set
+// Update
+// Delete
+
 userRoute.put("/user/:email", async (req, res) => {
  try {
   const { name, email } = User(req.body);
@@ -30,7 +35,7 @@ userRoute.put("/user/:email", async (req, res) => {
   }
 });
 
-userRoute.put("/users", async (req, res) => {
+/* userRoute.put("/users", async (req, res) => {
   const newUser = User(req.body);
   console.log(newUser);
   const { name, email } = newUser;
@@ -51,6 +56,6 @@ userRoute.put("/users", async (req, res) => {
       error: "There was an error",
     });
   }
-});
+}); */
 
 module.exports = userRoute;
