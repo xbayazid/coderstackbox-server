@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express'); 
 const cors = require('cors');
 const app = express();
@@ -33,9 +34,9 @@ mongoose.connect(
   }
 );
 
-app.post("/api/projects", projectRoute);
-app.put("/api/user/:email", userRoute);
-app.put("/api/users", userRoute);
+app.post("/projects", projectRoute);
+app.put("/user/:email", userRoute);
+app.put("/users", userRoute);
 
 /* async function run(){
     try{
