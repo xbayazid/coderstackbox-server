@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const ProjectsSchema = new mongoose.Schema(
   {
+    projectName: {
+      type: String,
+      default: () => "Untitled"
+    },
     html: {
       type: String,
     },
