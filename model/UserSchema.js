@@ -9,6 +9,9 @@ const UserSchema = new mongoose.Schema(
         type: String,
         unique: true
     },
+    photoURL: {
+        type: String,
+    },
   },
   { collection: "users" }
 );

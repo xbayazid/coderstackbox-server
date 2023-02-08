@@ -12,9 +12,9 @@ require('dotenv').config();
 
 userRoute.put("/user/:email", async (req, res) => {
  try {
-  const { name, email } = User(req.body);
+  const { name, email, photoURL } = User(req.body);
 
-  const token = jwt.sign({ name, email }, process.env.ACCESS_TOKEN, {
+  const token = jwt.sign({ name, email, photoURL }, process.env.ACCESS_TOKEN, {
       expiresIn: "5h",
     });
     const checkUserEmail = await User.findOne({email: req.params.email})
@@ -24,6 +24,7 @@ userRoute.put("/user/:email", async (req, res) => {
       const user = await User.create({
         name: req.body.name,
         email: req.body.email,
+        photoURL: req.body.photoURL
       });
       res.status(201).send({ user, token, message: 'User created successfully' });
     }
