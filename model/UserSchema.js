@@ -9,6 +9,21 @@ const UserSchema = new mongoose.Schema(
         type: String,
         unique: true
     },
+    phone: {
+        type: String,
+    },
+    about: {
+        type: String,
+    },
+    photoURL: {
+        type: String,
+    },
+    project: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "collections"
+        }
+    ]
   },
   { collection: "users" }
 );
