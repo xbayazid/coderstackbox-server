@@ -14,6 +14,7 @@ projectRoute.get("/collections", verifyLogin, async (req, res) => {
     __v: 0,
     date: 0,
   })
+  .sort({date: 'desc'})
   .exec((err, data) => {
     if (err) {
       res.status(500).json({
@@ -26,16 +27,6 @@ projectRoute.get("/collections", verifyLogin, async (req, res) => {
       });
     }
   });
-  /* try {
-    res.status(200).send({
-      message: `${user}`,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      error: `${user}`,
-    });
-  } */
 });
 
 
@@ -51,7 +42,15 @@ projectRoute.post("/projects", verifyLogin, async (req, res) => {
     user: user._id,
   });
   try {
-    await newProject.save();
+    const project = await newProject.save();
+    await User.updateOne({
+        _id: user._id,
+      }, {
+        $push: {
+          project: project._id
+        }
+      }
+    )
     res.status(200).send({
       message: "Project saved Successfully",
     });

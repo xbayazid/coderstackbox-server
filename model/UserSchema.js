@@ -18,6 +18,12 @@ const UserSchema = new mongoose.Schema(
     photoURL: {
         type: String,
     },
+    project: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "collections"
+        }
+    ]
   },
   { collection: "users" }
 );

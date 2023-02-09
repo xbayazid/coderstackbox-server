@@ -6,6 +6,43 @@ const userRoute = express.Router();
 require("dotenv").config();
 
 // Get
+userRoute.get("/users", async (req, res) => {
+  User.find({})
+  .select({
+    _id: 0,
+    __v: 0,
+    date: 0,
+  })
+  .exec((err, data) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        result: data,
+        message: "Success",
+      });
+    }
+  });
+});
+
+userRoute.get("/user", async (req, res) => {
+  try {
+    console.log(req.query);
+    const user = await User.find({ _id: req.query.id });
+    console.log(user)
+    res.status(200).json({
+      result: user,
+      message: "Success",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
+});
+
 // Set
 // Update
 // Delete
@@ -69,7 +106,6 @@ userRoute.put("/update-user/:id",async (req, res) => {
       updatedDoc,
       options
     );
-    console.log(result);
     res.status(201).send({ result, message: "User updated successfully" });
   } catch (error) {
     console.log(error.message);

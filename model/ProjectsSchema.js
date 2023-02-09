@@ -4,7 +4,6 @@ const ProjectsSchema = new mongoose.Schema(
   {
     projectName: {
       type: String,
-      default: () => "Untitled"
     },
     html: {
       type: String,
@@ -27,8 +26,8 @@ const ProjectsSchema = new mongoose.Schema(
       ref: "users",
     },
   },
-  { collection: "projects" }
+  { collection: "collections" }
 );
 
-const model = mongoose.model("projects", ProjectsSchema);
+const model = mongoose.model("collections", ProjectsSchema);
 module.exports = model;
