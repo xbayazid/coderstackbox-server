@@ -12,6 +12,9 @@ const UserSchema = new mongoose.Schema(
     phone: {
         type: String,
     },
+    about: {
+        type: String,
+    },
     photoURL: {
         type: String,
     },

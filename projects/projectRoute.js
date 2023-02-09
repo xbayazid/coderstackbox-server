@@ -6,6 +6,39 @@ const projectRoute = express.Router();
 
 
 // Get
+projectRoute.get("/collections", verifyLogin, async (req, res) => {
+
+  Projects.find({})
+  .select({
+    _id: 0,
+    __v: 0,
+    date: 0,
+  })
+  .exec((err, data) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        result: data,
+        message: "Success",
+      });
+    }
+  });
+  /* try {
+    res.status(200).send({
+      message: `${user}`,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error: `${user}`,
+    });
+  } */
+});
+
+
 // Set
 projectRoute.post("/projects", verifyLogin, async (req, res) => {
 

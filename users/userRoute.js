@@ -49,7 +49,7 @@ userRoute.put("/user/:email", async (req, res) => {
   }
 });
 
-userRoute.put("/updateUser/:id",async (req, res) => {
+userRoute.put("/update-user/:id",async (req, res) => {
   try {
     const filter = { _id: req.params.id };
     const options = { 
@@ -60,6 +60,7 @@ userRoute.put("/updateUser/:id",async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
+        about: req.body.about,
         photoURL: req.body.photoURL,
       },
     };

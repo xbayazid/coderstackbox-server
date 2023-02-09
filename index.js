@@ -35,8 +35,9 @@ mongoose.connect(
 );
 
 app.post("/projects", projectRoute);
+app.get("/collections", projectRoute);
 app.put("/user/:email", userRoute);
-app.put("/updateUser/:id", userRoute);
+app.put("/update-user/:id", userRoute);
 
 /* async function run(){
     try{
