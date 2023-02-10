@@ -29,6 +29,29 @@ projectRoute.get("/collections", verifyLogin, async (req, res) => {
   });
 });
 
+projectRoute.get("/user-collections/:id", verifyLogin, async (req, res) => {
+
+  Projects.find({ user: req.params.id })
+  .select({
+    _id: 0,
+    __v: 0,
+    date: 0,
+  })
+  .sort({date: 'desc'})
+  .exec((err, data) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        result: data,
+        message: "Success",
+      });
+    }
+  });
+});
+
 
 // Set
 projectRoute.post("/projects", verifyLogin, async (req, res) => {
