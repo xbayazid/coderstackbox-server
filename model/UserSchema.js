@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema(
   {
     name: {
-        type: String
+      type: String,
     },
     email: {
-        type: String,
-        unique: true
+      type: String,
+      unique: true,
     },
   },
   { collection: "users" }
