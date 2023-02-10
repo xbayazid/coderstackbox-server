@@ -1,14 +1,13 @@
-'use strict';
-const express = require('express'); 
-const cors = require('cors');
+"use strict";
+const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
-require('dotenv').config();
-const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
-const { default: mongoose } = require('mongoose');
-const projectRoute = require('./projects/projectRoute');
-const userRoute = require('./users/userRoute');
-
+require("dotenv").config();
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { default: mongoose } = require("mongoose");
+const projectRoute = require("./projects/projectRoute");
+const userRoute = require("./users/userRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -38,8 +37,8 @@ app.post("/projects", projectRoute);
 app.get("/collections", projectRoute);
 app.get("/users", userRoute);
 app.get("/user", userRoute);
+app.put("/u/:email", userRoute);
 app.put("/user/:email", userRoute);
-app.put("/update-user/:id", userRoute);
 
 /* async function run(){
     try{
@@ -165,8 +164,8 @@ app.put("/update-user/:id", userRoute);
 
 run().catch(error => console.log(error)); */
 
-app.get('/', async(req, res)=>{
-    res.send('CodersStackBox server is running');
-})
+app.get("/", async (req, res) => {
+  res.send("CodersStackBox server is running");
+});
 
-app.listen(port, ()=> console.log(`CodersStackBox sever running on ${port}`));
+app.listen(port, () => console.log(`CodersStackBox sever running on ${port}`));

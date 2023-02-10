@@ -8,30 +8,30 @@ require("dotenv").config();
 // Get
 userRoute.get("/users", async (req, res) => {
   User.find({})
-  .select({
-    _id: 0,
-    __v: 0,
-    date: 0,
-  })
-  .exec((err, data) => {
-    if (err) {
-      res.status(500).json({
-        error: "There was a server side error!",
-      });
-    } else {
-      res.status(200).json({
-        result: data,
-        message: "Success",
-      });
-    }
-  });
+    .select({
+      _id: 0,
+      __v: 0,
+      date: 0,
+    })
+    .exec((err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "Success",
+        });
+      }
+    });
 });
 
 userRoute.get("/user", async (req, res) => {
   try {
     console.log(req.query);
     const user = await User.find({ _id: req.query.id });
-    console.log(user)
+    console.log(user);
     res.status(200).json({
       result: user,
       message: "Success",
@@ -60,13 +60,11 @@ userRoute.put("/user/:email", async (req, res) => {
     );
     const checkUserEmail = await User.findOne({ email: req.params.email });
     if (checkUserEmail) {
-      res
-        .status(200)
-        .send({
-          checkUserEmail,
-          token,
-          message: "User logged in successfully",
-        });
+      res.status(200).send({
+        checkUserEmail,
+        token,
+        message: "User logged in successfully",
+      });
     } else {
       const user = await User.create({
         name: req.body.name,
@@ -86,12 +84,13 @@ userRoute.put("/user/:email", async (req, res) => {
   }
 });
 
-userRoute.put("/update-user/:id",async (req, res) => {
+userRoute.put("/u/:email", async (req, res) => {
   try {
-    const filter = { _id: req.params.id };
-    const options = { 
+    const filter = { email: req.params.email };
+    console.log(filter);
+    const options = {
       upsert: true,
-     };
+    };
     const updatedDoc = {
       $set: {
         name: req.body.name,
@@ -101,11 +100,8 @@ userRoute.put("/update-user/:id",async (req, res) => {
         photoURL: req.body.photoURL,
       },
     };
-    const result =await User.findOneAndUpdate(
-      filter,
-      updatedDoc,
-      options
-    );
+    const result = await User.findOneAndUpdate(filter, updatedDoc, options);
+    console.log(result);
     res.status(201).send({ result, message: "User updated successfully" });
   } catch (error) {
     console.log(error.message);
@@ -114,28 +110,5 @@ userRoute.put("/update-user/:id",async (req, res) => {
     });
   }
 });
-
-/* userRoute.put("/users", async (req, res) => {
-  const newUser = User(req.body);
-  console.log(newUser);
-  const { name, email } = newUser;
-   const filter = { email: email };
-  const options = { upsert: true };
-  const updateDoc = {
-    $set: newUser,
-  };
-  try {
-    const result = await newUser.updateOne(filter, updateDoc, options);
-
-    res.status(200).json({
-      message: "User created Successfully",
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      error: "There was an error",
-    });
-  }
-}); */
 
 module.exports = userRoute;
