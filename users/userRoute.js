@@ -84,9 +84,10 @@ userRoute.put("/user/:email", async (req, res) => {
   }
 });
 
-userRoute.put("/update-user/:id", async (req, res) => {
+userRoute.put("/u/:email", async (req, res) => {
   try {
-    const filter = { _id: req.params.id };
+    const filter = { email: req.params.email };
+    console.log(filter);
     const options = {
       upsert: true,
     };
@@ -100,6 +101,7 @@ userRoute.put("/update-user/:id", async (req, res) => {
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
+    console.log(result);
     res.status(201).send({ result, message: "User updated successfully" });
   } catch (error) {
     console.log(error.message);
@@ -108,28 +110,5 @@ userRoute.put("/update-user/:id", async (req, res) => {
     });
   }
 });
-
-/* userRoute.put("/users", async (req, res) => {
-  const newUser = User(req.body);
-  console.log(newUser);
-  const { name, email } = newUser;
-  const filter = { email: email };
-  const options = { upsert: true };
-  const updateDoc = {
-    $set: newUser,
-  };
-  try {
-    const result = await newUser.updateOne(filter, updateDoc, options);
-
-    res.status(200).json({
-      message: "User created Successfully",
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      error: "There was an error",
-    });
-  }
-}); */
 
 module.exports = userRoute;
