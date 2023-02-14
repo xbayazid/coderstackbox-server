@@ -67,8 +67,6 @@ userRoute.get("/u", async (req, res) => {
 
 // Set
 // Update
-// Delete
-
 userRoute.put("/user/:email", async (req, res) => {
   try {
     const { name, email, photoURL } = User(req.body);
@@ -133,5 +131,11 @@ userRoute.put("/u/:id", async (req, res) => {
     });
   }
 });
+
+// Delete
+
+
+
+
 
 module.exports = userRoute;
