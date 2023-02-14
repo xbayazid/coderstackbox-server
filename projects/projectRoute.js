@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const verifyLogin = require("../middlewares/verifyLogin");
 const Projects = require("../model/ProjectsSchema");
 const User = require("../model/UserSchema");
@@ -29,16 +30,18 @@ projectRoute.get("/collections", verifyLogin, async (req, res) => {
   });
 });
 
-projectRoute.get("/user-collections/:id", verifyLogin, async (req, res) => {
+projectRoute.get("/user-collections", verifyLogin, async (req, res) => {
 
-  Projects.find({ user: req.params.id })
-  .select({
-    _id: 0,
-    __v: 0,
-    date: 0,
-  })
+  const user = await User.findOne({ email: req.decoded.email });
+  if (user) {
+    res.status(400).send({ message: `${ObjectId(user._id)}` });
+  } 
+
+  Projects.find({ user: (user._id) })
+  .populate("collections")
   .sort({date: 'desc'})
   .exec((err, data) => {
+    console.log(data)
     if (err) {
       res.status(500).json({
         error: "There was a server side error!",
