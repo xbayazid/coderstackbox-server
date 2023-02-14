@@ -38,7 +38,9 @@ app.get("/collections", projectRoute);
 app.get("/user-collections", projectRoute);
 app.get("/users", userRoute);
 app.get("/user", userRoute);
-app.put("/u/:email", userRoute);
+app.get("/u", userRoute);
+app.get("/u/:id", userRoute);
+app.put("/u/:id", userRoute);
 app.put("/user/:email", userRoute);
 
 /* async function run(){
