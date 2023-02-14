@@ -42,6 +42,28 @@ userRoute.get("/user", async (req, res) => {
     });
   }
 });
+userRoute.get("/u/:id", async (req, res) => {
+  try {
+    const user = await User.find({ _id: req.params.id });
+    console.log(user);
+    res.status(200).json({
+      result: user,
+      message: "Success",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
+});
+
+userRoute.get("/u", async (req, res) => {
+  const filter = { email: req.query.email };
+  console.log("filter", filter);
+  const user = await User.find(filter);
+  console.log("from user", user);
+  res.send(user);
+});
 
 // Set
 // Update
@@ -84,9 +106,10 @@ userRoute.put("/user/:email", async (req, res) => {
   }
 });
 
-userRoute.put("/u/:email", async (req, res) => {
+userRoute.put("/u/:id", async (req, res) => {
   try {
-    const filter = { email: req.params.email };
+    console.log(req.body);
+    const filter = { _id: req.params.id };
     console.log(filter);
     const options = {
       upsert: true,
