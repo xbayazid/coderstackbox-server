@@ -2,6 +2,7 @@ const express = require("express");
 const { ObjectId } = require("mongodb");
 const verifyLogin = require("../middlewares/verifyLogin");
 const Projects = require("../model/ProjectsSchema");
+const CompiledCode = require("../model/CompiledCodeSchema");
 const User = require("../model/UserSchema");
 const projectRoute = express.Router();
 
@@ -77,6 +78,38 @@ projectRoute.post("/projects", verifyLogin, async (req, res) => {
         }
       }
     )
+    res.status(200).send({
+      message: "Project saved Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error: "there was an error",
+    });
+  }
+});
+
+projectRoute.post("/compiled-code", verifyLogin, async (req, res) => {
+
+  const user = await User.findOne({ email: req.decoded.email });
+  if (!user) {
+    res.status(400).send({ message: "Please re-login" });
+  }
+  const newProject = new CompiledCode({
+    ...req.body,
+    user: user._id,
+  });
+  try {
+    const project = await newProject.save();
+    await User.updateOne({
+        _id: user._id,
+      }, {
+        $push: {
+          project: project._id
+        }
+      }
+    )
+    console.log("project", project)
     res.status(200).send({
       message: "Project saved Successfully",
     });
