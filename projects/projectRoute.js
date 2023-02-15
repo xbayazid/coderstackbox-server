@@ -8,14 +8,10 @@ const projectRoute = express.Router();
 
 
 // Get
-projectRoute.get("/collections", verifyLogin, async (req, res) => {
+projectRoute.get("/collections", async (req, res) => {
 
   Projects.find({})
-  .select({
-    _id: 0,
-    __v: 0,
-    date: 0,
-  })
+  .populate("user", "-_id")
   .sort({date: 'desc'})
   .exec((err, data) => {
     if (err) {
