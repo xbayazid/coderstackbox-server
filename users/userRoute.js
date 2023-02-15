@@ -31,9 +31,7 @@ userRoute.get("/users", async (req, res) => {
 
 userRoute.get("/user", async (req, res) => {
   try {
-    console.log(req.query);
     const user = await User.find({ _id: req.query.id });
-    console.log(user);
     res.status(200).json({
       result: user,
       message: "Success",
@@ -47,7 +45,6 @@ userRoute.get("/user", async (req, res) => {
 userRoute.get("/u/:id", async (req, res) => {
   try {
     const user = await User.find({ _id: req.params.id });
-    console.log(user);
     res.status(200).json({
       result: user,
       message: "Success",
@@ -106,9 +103,7 @@ userRoute.put("/user/:email", async (req, res) => {
 
 userRoute.put("/u/:id", async (req, res) => {
   try {
-    console.log(req.body);
     const filter = { _id: req.params.id };
-    console.log(filter);
     const options = {
       upsert: true,
     };
@@ -122,7 +117,6 @@ userRoute.put("/u/:id", async (req, res) => {
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
-    console.log(result);
     res.status(201).send({ result, message: "User updated successfully" });
   } catch (error) {
     console.log(error.message);
@@ -143,7 +137,6 @@ userRoute.put("/u/admin/:id", async (req, res) => {
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
-    console.log("role",result);
     res.status(201).send({ result, message: "Assign admin successfully" });
   } catch (error) {
     console.log(error.message);

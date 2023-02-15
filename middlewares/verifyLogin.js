@@ -11,7 +11,6 @@ const verifyLogin = (req, res, next) => {
         return res.status(403).send({ message: "Forbidden Access" });
       }
       req.decoded = decoded;
-      console.log(decoded);
       next();
     });
   }

@@ -38,7 +38,6 @@ projectRoute.get("/user-collections", verifyLogin, async (req, res) => {
   .populate("collections")
   .sort({date: 'desc'})
   .exec((err, data) => {
-    console.log(data)
     if (err) {
       res.status(500).json({
         error: "There was a server side error!",
@@ -105,7 +104,6 @@ projectRoute.post("/compiled-code", verifyLogin, async (req, res) => {
         }
       }
     )
-    console.log("project", project)
     res.status(200).send({
       message: "Project saved Successfully",
     });
