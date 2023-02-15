@@ -34,6 +34,7 @@ mongoose.connect(
 );
 
 app.post("/projects", projectRoute);
+app.put("/code/:id", projectRoute);
 app.post("/compiled-code", projectRoute);
 app.get("/collections", projectRoute);
 app.get("/user-collections", projectRoute);

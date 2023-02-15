@@ -14,7 +14,6 @@ projectRoute.get("/collections", async (req, res) => {
   .populate("user", "-_id")
   .sort({date: 'desc'})
   .exec((err, data) => {
-    console.log(data)
     if (err) {
       res.status(500).json({
         error: "There was a server side error!",
@@ -116,6 +115,27 @@ projectRoute.post("/compiled-code", verifyLogin, async (req, res) => {
   }
 });
 // Update
+projectRoute.put("/code/:id", async (req, res) => {
+  try {
+    const filter = { _id: req.params.id };
+    const options = {
+      upsert: true,
+    };
+    const updatedDoc = {
+      $set: {
+        ...req.body,
+      },
+    };
+    const result = await Projects.findOneAndUpdate(filter, updatedDoc, options);
+    console.log("Project", result);
+    res.status(201).send({ result, message: "User updated successfully" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      error: "There was an error",
+    });
+  }
+});
 // Delete
 
 
