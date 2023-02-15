@@ -14,6 +14,7 @@ projectRoute.get("/collections", async (req, res) => {
   .populate("user", "-_id")
   .sort({date: 'desc'})
   .exec((err, data) => {
+    console.log(data)
     if (err) {
       res.status(500).json({
         error: "There was a server side error!",

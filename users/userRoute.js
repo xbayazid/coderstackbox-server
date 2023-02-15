@@ -133,7 +133,7 @@ userRoute.put("/u/admin/:id", async (req, res) => {
     };
     const updatedDoc = {
       $set: {
-        role: req.body.role,
+        role: "admin",
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
