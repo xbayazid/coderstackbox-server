@@ -8,11 +8,7 @@ require("dotenv").config();
 // Get
 userRoute.get("/users", async (req, res) => {
   User.find({})
-    .select({
-      _id: 0,
-      __v: 0,
-      date: 0,
-    })
+    .populate("project")
     .exec((err, data) => {
       if (err) {
         res.status(500).json({
@@ -59,16 +55,12 @@ userRoute.get("/u/:id", async (req, res) => {
 
 userRoute.get("/u", async (req, res) => {
   const filter = { email: req.query.email };
-  console.log("filter", filter);
   const user = await User.find(filter);
-  console.log("from user", user);
   res.send(user);
 });
 
 // Set
 // Update
-// Delete
-
 userRoute.put("/user/:email", async (req, res) => {
   try {
     const { name, email, photoURL } = User(req.body);
@@ -133,5 +125,29 @@ userRoute.put("/u/:id", async (req, res) => {
     });
   }
 });
+userRoute.put("/u/admin/:id", async (req, res) => {
+  try {
+    const filter = { _id: req.params.id };
+    console.log(filter);
+    const options = {
+      upsert: true,
+    };
+    const updatedDoc = {
+      $set: {
+        role: "admin",
+      },
+    };
+    const result = await User.findOneAndUpdate(filter, updatedDoc, options);
+    console.log(result);
+    res.status(201).send({ result, message: "Admin got" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      error: "There was an error",
+    });
+  }
+});
+
+// Delete
 
 module.exports = userRoute;
