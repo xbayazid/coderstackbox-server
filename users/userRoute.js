@@ -134,18 +134,17 @@ userRoute.put("/u/:id", async (req, res) => {
 userRoute.put("/u/admin/:id", async (req, res) => {
   try {
     const filter = { _id: req.params.id };
-    console.log(filter);
     const options = {
       upsert: true,
     };
     const updatedDoc = {
       $set: {
-        role: "admin",
+        role: req.body.role,
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
-    console.log(result);
-    res.status(201).send({ result, message: "Admin got" });
+    console.log("role",result);
+    res.status(201).send({ result, message: "Assign admin successfully" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
