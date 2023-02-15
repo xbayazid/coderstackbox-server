@@ -42,6 +42,7 @@ app.get("/user", userRoute);
 app.get("/u", userRoute);
 app.get("/u/:id", userRoute);
 app.put("/u/:id", userRoute);
+app.put("/u/admin/:id", userRoute);
 app.put("/user/:email", userRoute);
 
 /* async function run(){
