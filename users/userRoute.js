@@ -7,7 +7,8 @@ require("dotenv").config();
 
 // Get
 userRoute.get("/users", async (req, res) => {
-  User.find({})
+  try {
+    User.find({})
     .populate("project")
     .exec((err, data) => {
       if (err) {
@@ -21,6 +22,11 @@ userRoute.get("/users", async (req, res) => {
         });
       }
     });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
 });
 
 userRoute.get("/user", async (req, res) => {
