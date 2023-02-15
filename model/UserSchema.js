@@ -10,20 +10,23 @@ const UserSchema = new mongoose.Schema(
       unique: true,
     },
     phone: {
-        type: String,
+      type: String,
     },
     about: {
-        type: String,
+      type: String,
     },
     photoURL: {
-        type: String,
+      type: String,
+    },
+    role: {
+      type: String,
     },
     project: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "collections"
-        }
-    ]
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "collections",
+      },
+    ],
   },
   { collection: "users" }
 );
