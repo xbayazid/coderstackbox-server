@@ -8,6 +8,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const { default: mongoose } = require("mongoose");
 const projectRoute = require("./projects/projectRoute");
 const userRoute = require("./users/userRoute");
+const blogRoute = require("./addBlog/BlogRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -42,6 +43,8 @@ app.get("/u", userRoute);
 app.get("/u/:id", userRoute);
 app.put("/u/:id", userRoute);
 app.put("/user/:email", userRoute);
+app.post("/blog", blogRoute);
+app.get("/blog", blogRoute);
 
 /* async function run(){
     try{
