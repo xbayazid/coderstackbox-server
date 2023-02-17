@@ -80,7 +80,7 @@ userRoute.put("/user/:email", async (req, res) => {
       res.status(200).send({
         checkUserEmail,
         token,
-        message: "User logged in successfully",
+        message: `Hi! ${name} WellCome back again!`
       });
     } else {
       const user = await User.create({
@@ -91,7 +91,7 @@ userRoute.put("/user/:email", async (req, res) => {
       });
       res
         .status(201)
-        .send({ user, token, message: "User created successfully" });
+        .send({ user, token, message: `Hi! ${user.name} WellCome to CodersStackBox`});
     }
   } catch (error) {
     console.log(error);
