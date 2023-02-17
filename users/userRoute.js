@@ -7,7 +7,8 @@ require("dotenv").config();
 
 // Get
 userRoute.get("/users", async (req, res) => {
-  User.find({})
+  try {
+    User.find({})
     .populate("project")
     .exec((err, data) => {
       if (err) {
@@ -21,13 +22,16 @@ userRoute.get("/users", async (req, res) => {
         });
       }
     });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
 });
 
 userRoute.get("/user", async (req, res) => {
   try {
-    console.log(req.query);
     const user = await User.find({ _id: req.query.id });
-    console.log(user);
     res.status(200).json({
       result: user,
       message: "Success",
@@ -41,7 +45,6 @@ userRoute.get("/user", async (req, res) => {
 userRoute.get("/u/:id", async (req, res) => {
   try {
     const user = await User.find({ _id: req.params.id });
-    console.log(user);
     res.status(200).json({
       result: user,
       message: "Success",
@@ -77,7 +80,7 @@ userRoute.put("/user/:email", async (req, res) => {
       res.status(200).send({
         checkUserEmail,
         token,
-        message: "User logged in successfully",
+        message: `Hi! ${name} WellCome back again!`
       });
     } else {
       const user = await User.create({
@@ -88,7 +91,7 @@ userRoute.put("/user/:email", async (req, res) => {
       });
       res
         .status(201)
-        .send({ user, token, message: "User created successfully" });
+        .send({ user, token, message: `Hi! ${user.name} WellCome to CodersStackBox`});
     }
   } catch (error) {
     console.log(error);
@@ -100,9 +103,7 @@ userRoute.put("/user/:email", async (req, res) => {
 
 userRoute.put("/u/:id", async (req, res) => {
   try {
-    console.log(req.body);
     const filter = { _id: req.params.id };
-    console.log(filter);
     const options = {
       upsert: true,
     };
@@ -116,7 +117,6 @@ userRoute.put("/u/:id", async (req, res) => {
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
-    console.log(result);
     res.status(201).send({ result, message: "User updated successfully" });
   } catch (error) {
     console.log(error.message);
@@ -128,7 +128,6 @@ userRoute.put("/u/:id", async (req, res) => {
 userRoute.put("/u/admin/:id", async (req, res) => {
   try {
     const filter = { _id: req.params.id };
-    console.log(filter);
     const options = {
       upsert: true,
     };
@@ -138,8 +137,7 @@ userRoute.put("/u/admin/:id", async (req, res) => {
       },
     };
     const result = await User.findOneAndUpdate(filter, updatedDoc, options);
-    console.log(result);
-    res.status(201).send({ result, message: "Admin got" });
+    res.status(201).send({ result, message: "Assign admin successfully" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
