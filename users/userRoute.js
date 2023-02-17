@@ -167,5 +167,18 @@ userRoute.put("/u/admin/:id", async (req, res) => {
 });
 
 // Delete
+userRoute.delete("/user/:id", (req, res) => {
+  User.deleteOne({ _id: req.params.id }, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        message: "User deleted successfully!",
+      });
+    }
+  });
+});
 
 module.exports = userRoute;

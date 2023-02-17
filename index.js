@@ -45,6 +45,7 @@ app.get("/u/:id", userRoute);
 app.put("/u/:id", userRoute);
 app.put("/u/admin/:id", userRoute);
 app.put("/user/:email", userRoute);
+app.delete("/user/:id", userRoute);
 
 app.get("/", async (req, res) => {
   res.send("CodersStackBox server is running");
