@@ -58,8 +58,28 @@ userRoute.get("/u/:id", async (req, res) => {
 
 userRoute.get("/u", async (req, res) => {
   const filter = { email: req.query.email };
-  const user = await User.find(filter);
-  res.send(user);
+  
+    try {
+      User.find(filter)
+      .populate("project")
+      .exec((err, data) => {
+        if (err) {
+          res.status(500).json({
+            error: "There was a server side error!",
+          });
+        } else {
+          res.status(200).json({
+            result: data,
+            message: "Success",
+          });
+        }
+      });
+    } catch (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    }
+ 
 });
 
 // Set
