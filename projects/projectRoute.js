@@ -127,8 +127,8 @@ projectRoute.put("/code/:id", async (req, res) => {
       },
     };
     const result = await Projects.findOneAndUpdate(filter, updatedDoc, options);
-    console.log("Project", result);
-    res.status(201).send({ result, message: "User updated successfully" });
+    res.status(201).send({ result, message: "Project updated successfully" });
+    console.log("result");
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
