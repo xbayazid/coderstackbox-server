@@ -35,9 +35,10 @@ mongoose.connect(
 );
 
 app.post("/projects", projectRoute);
+app.put("/code/:id", projectRoute);
 app.post("/compiled-code", projectRoute);
 app.get("/collections", projectRoute);
-app.get("/user-collections", projectRoute);
+// app.get("/user-collections", projectRoute);
 app.get("/users", userRoute);
 app.get("/user", userRoute);
 app.get("/u", userRoute);
@@ -47,6 +48,7 @@ app.put("/u/admin/:id", userRoute);
 app.put("/user/:email", userRoute);
 app.post("/blog", blogRoute);
 app.get("/blog", blogRoute);
+app.delete("/user/:id", userRoute);
 
 app.get("/", async (req, res) => {
   res.send("CodersStackBox server is running");
