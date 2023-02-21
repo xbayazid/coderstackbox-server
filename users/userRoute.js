@@ -31,7 +31,8 @@ userRoute.get("/users", async (req, res) => {
 
 userRoute.get("/user", async (req, res) => {
   try {
-    const user = await User.find({ _id: req.query.id });
+    const user = await User.find({ _id: req.query.id })
+    .populate('project')
     res.status(200).json({
       result: user,
       message: "Success",
