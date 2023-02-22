@@ -64,7 +64,4 @@ blogRoute.post("/blog", verifyLogin, async (req, res) => {
       });
     }
   });
-
-
-
 module.exports = blogRoute;
