@@ -10,7 +10,11 @@ const projectRoute = express.Router();
 // Get
 projectRoute.get("/collections", async (req, res) => {
 
-  Projects.find({})
+  const PAGE_SIZE = parseInt(req.query.limit || {});;
+  const page = parseInt(req.query.page || "0");
+  const total = await Projects.countDocuments({});
+
+  Projects.find({}).limit(PAGE_SIZE).skip(PAGE_SIZE * page)
   .populate("user", "-_id")
   .sort({date: 'desc'})
   .exec((err, data) => {
@@ -20,6 +24,7 @@ projectRoute.get("/collections", async (req, res) => {
       });
     } else {
       res.status(200).json({
+        totalPages: Math.ceil(total / PAGE_SIZE),
         result: data,
         message: "Success",
       });
