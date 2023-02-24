@@ -1,12 +1,13 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
+const verifyAdmin = require("../middlewares/verifyAdmin");
 const User = require("../model/UserSchema");
 const userRoute = express.Router();
 require("dotenv").config();
 
 // Get
-userRoute.get("/users", async (req, res) => {
+userRoute.get("/users", verifyAdmin, async (req, res) => {
   try {
     User.find({})
     .populate("project")
