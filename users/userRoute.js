@@ -1,12 +1,14 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
+const verifyAdmin = require("../middlewares/verifyAdmin");
+const verifyLogin = require("../middlewares/verifyLogin");
 const User = require("../model/UserSchema");
 const userRoute = express.Router();
 require("dotenv").config();
 
 // Get
-userRoute.get("/users", async (req, res) => {
+userRoute.get("/users", verifyLogin, verifyAdmin, async (req, res) => {
   try {
     User.find({})
     .populate("project")
@@ -22,6 +24,25 @@ userRoute.get("/users", async (req, res) => {
         });
       }
     });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+    });
+  }
+});
+
+userRoute.get("/admin", verifyAdmin, async (req, res) => {
+  try {
+    const adminEmail = req.query.email;
+    // console.log(adminEmail);
+    const query = { email: adminEmail };
+    const user = await User.findOne(query);
+    // console.log(user);
+    if (user && user?.role === 'admin') {
+      return res.status(401).send({isAdmin: 'admin'});
+    }
+    return res.status(404).send({message: 'You are not a admin'});
+
   } catch (err) {
     res.status(500).json({
       error: "There was a server side error!",
