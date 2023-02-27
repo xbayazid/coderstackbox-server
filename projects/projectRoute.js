@@ -34,13 +34,7 @@ projectRoute.get("/collections", async (req, res) => {
 
 projectRoute.get("/user-collections", verifyLogin, async (req, res) => {
 
-  const user = await User.findOne({ email: req.decoded.email });
-  if (user) {
-    res.status(400).send({ message: `${ObjectId(user._id)}` });
-  } 
-
-  Projects.find({ user: (user._id) })
-  .populate("collections")
+  Projects.find({ user: (req.query.id) })
   .sort({date: 'desc'})
   .exec((err, data) => {
     if (err) {
@@ -55,6 +49,8 @@ projectRoute.get("/user-collections", verifyLogin, async (req, res) => {
     }
   });
 });
+
+
 
 
 // Set
@@ -142,7 +138,20 @@ projectRoute.put("/code/:id", async (req, res) => {
   }
 });
 // Delete
-
+projectRoute.delete("/code/:id", async (req, res) => {
+  
+  Projects.deleteOne({ _id: req.params.id }, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        message: `Deleted Successfully`,
+      });
+    }
+  });
+});
 
 
 module.exports = projectRoute;
