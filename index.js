@@ -37,7 +37,8 @@ app.post("/projects", projectRoute);
 app.put("/code/:id", projectRoute);
 app.post("/compiled-code", projectRoute);
 app.get("/collections", projectRoute);
-// app.get("/user-collections", projectRoute);
+app.delete("/code/:id", projectRoute);
+app.get("/user-collections", projectRoute);
 app.get("/admin", userRoute);
 app.get("/users", userRoute);
 app.get("/user", userRoute);
@@ -47,6 +48,7 @@ app.put("/u/:id", userRoute);
 app.put("/u/admin/:id", userRoute);
 app.put("/user/:email", userRoute);
 app.delete("/user/:id", userRoute);
+
 
 app.get("/", async (req, res) => {
   res.send("CodersStackBox server is running");
