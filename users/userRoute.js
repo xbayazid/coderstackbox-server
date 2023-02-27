@@ -8,7 +8,7 @@ const userRoute = express.Router();
 require("dotenv").config();
 
 // Get
-userRoute.get("/users", verifyLogin, verifyAdmin, async (req, res) => {
+userRoute.get("/users", async (req, res) => {
   try {
     User.find({})
     .populate("project")
